@@ -5,17 +5,18 @@ public class Main {
     private static ArrayList<User> users = new ArrayList<>();
 
     // Mock authentication service that always returns the first user when log in, and does nothing when sign up
-    private static IAuthenticationService authService = new IAuthenticationService() {
-        @Override
-        public User signUp(String username, String password) {
-            return null;
-        }
-
-        @Override
-        public User logIn(String username, String password) {
-            return users.get(0);
-        }
-    };
+    private static IAuthenticationService authService = new AuthenticationService(users);
+//    {
+//        @Override
+//        public User signUp(String username, String password) {
+//            return users;
+//        }
+//
+//        @Override
+//        public User logIn(String username, String password) {
+//            return users.get(0);
+//        }
+//    };
     private static boolean isRunning = true;
 
     /**
@@ -85,13 +86,25 @@ public class Main {
      * Handles the sign-up process.
      */
     public static void onSignUp() {
+        for(User user : users){
+           System.out.print("Current uses:\n");
+           System.out.print(user.getUsername() + "\n");
+        }
+
         System.out.print("Enter your username: ");
         Scanner scanner = new Scanner(System.in);
         String username = scanner.nextLine();
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
         User user = authService.signUp(username, password);
-        // TODO Later: Shows a message based on the result
+        // TODO Now: Show a message based on the result of the signUp method:
+        // - If the user is not null, show "User <username> has been created successfully!"
+        // - If the user is null, show "The username is already taken!"
+        if (user == null) {
+            System.out.print("The username is already taken!\n");
+        }  else {
+            System.out.printf("User %s has been created successfully\n", user.getUsername());
+        }
     }
 
     /**
