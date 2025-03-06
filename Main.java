@@ -84,10 +84,11 @@ public class Main {
      * Handles the sign-up process.
      */
     public static void onSignUp() {
-        for(User user : users){
-           System.out.print("Current uses:\n");
-           System.out.print(user.getUsername() + "\n");
-        }
+        // For debug only
+//        for(User user : users){
+//           System.out.print("Current uses:\n");
+//           System.out.print(user.getUsername() + "\n");
+//        }
 
         System.out.print("Enter your username: ");
         Scanner scanner = new Scanner(System.in);
